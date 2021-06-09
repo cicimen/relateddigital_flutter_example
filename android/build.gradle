@@ -31,3 +31,6 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//classpath 'com.google.gms:google-services:4.3.5'
+//classpath 'com.huawei.agconnect:agcp:1.4.1.300'

@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final RelateddigitalFlutter relatedDigitalPlugin = RelateddigitalFlutter();
   String token = '-';
-  String email = '';
+  String email = 'cicimen@msn.com';
   final bool emailPermission = true;
   @override
   void initState() {
@@ -35,11 +35,12 @@ class _MyAppState extends State<MyApp> {
       inAppNotificationsEnabled: Constants.IN_APP_NOTIFICATIONS_ENABLED, // IOS only
       logEnabled: Constants.LOG_ENABLED,
     );
-    await relatedDigitalPlugin.init(initRequest);
+    await relatedDigitalPlugin.init(initRequest, _readNotificationCallback);
   }
+
   void _getTokenCallback(RDTokenResponseModel result) {
-    print('RDTokenResponseModel ' + result.toString());
     if(result != null && result.deviceToken != null && result.deviceToken.isNotEmpty) {
+      print('Token ' + result.deviceToken);
       setState(() {
         token = result.deviceToken;
       });
@@ -50,12 +51,13 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
+
   void _readNotificationCallback(dynamic result) {
     print('_readNotificationCallback');
     print(result);
   }
   Future<void> requestPermission() async {
-    await relatedDigitalPlugin.requestPermission(_getTokenCallback, _readNotificationCallback);
+    await relatedDigitalPlugin.requestPermission(_getTokenCallback);
   }
   Future<void> setEmail() async {
     await relatedDigitalPlugin.setEmail(email, emailPermission);
@@ -64,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     bool permission = true;
     bool isCommercial = false;
     await relatedDigitalPlugin.registerEmail(email, permission: permission, isCommercial: isCommercial);
+    await relatedDigitalPlugin.setEmail('egemen@visilabs.com', true);
   }
   Future<void> customEvent() async {
     String pageName = 'pragmahome';
@@ -77,35 +80,35 @@ class _MyAppState extends State<MyApp> {
   Future<void> barisAlert() async {
     String pageName = 'barisAlert';
     Map<String, String> parameters = {
-      'OM.exVisitorID': 'baris.arslan@euromsg.com'
+      'OM.exVisitorID': 'egemen@visilabs.com'
     };
     await relatedDigitalPlugin.customEvent(pageName, parameters);
   }
   Future<void> anketInApp() async {
     String pageName = 'anketInApp';
     Map<String, String> parameters = {
-      'OM.exVisitorID': 'baris.arslan@euromsg.com'
+      'OM.exVisitorID': 'egemen@visilabs.com'
     };
     await relatedDigitalPlugin.customEvent(pageName, parameters);
   }
   Future<void> gorselBaslikMetin() async {
     String pageName = 'GorselBaslikMetin';
     Map<String, String> parameters = {
-      'OM.exVisitorID': 'baris.arslan@euromsg.com'
+      'OM.exVisitorID': 'egemen@visilabs.com'
     };
     await relatedDigitalPlugin.customEvent(pageName, parameters);
   }
   Future<void> gorselBaslikMetinII() async {
     String pageName = 'gorselBaslikMetinII';
     Map<String, String> parameters = {
-      'OM.exVisitorID': 'baris.arslan@euromsg.com'
+      'OM.exVisitorID': 'egemen@visilabs.com'
     };
     await relatedDigitalPlugin.customEvent(pageName, parameters);
   }
   Future<void> miniIconText() async {
     String pageName = 'MiniIconText';
     Map<String, String> parameters = {
-      'OM.exVisitorID': 'baris.arslan@euromsg.com'
+      'OM.exVisitorID': 'egemen@visilabs.com'
     };
     await relatedDigitalPlugin.customEvent(pageName, parameters);
   }
