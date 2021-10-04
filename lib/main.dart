@@ -70,6 +70,18 @@ class _MyAppState extends State<MyApp> {
     await relatedDigitalPlugin.setEmail('egemen@visilabs.com', true);
   }
 
+  void getPushNotifications() async {
+    PayloadListResponse pushNotifications = await relatedDigitalPlugin.getPushMessages();
+    if(pushNotifications.error == null) {
+      for (final Payload payload in pushNotifications.payloads) {
+        print(payload);
+        String content = 'title: ${payload.title}\nmessage: ${payload.message}\nformattedDate: ${payload.formattedDate}'
+            + '\ntype: ${payload.type}\nurl: ${payload.url}\nmediaUrl: ${payload.mediaUrl}';
+        print(content);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -114,6 +126,12 @@ class _MyAppState extends State<MyApp> {
                             registerEmail();
                           },
                           child: Text('Register Email')
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            getPushNotifications();
+                          },
+                          child: Text('Get Push Notifications')
                       ),
                     ],
                   ),
